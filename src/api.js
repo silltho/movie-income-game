@@ -17,7 +17,7 @@ export default {
       });
   },
 
-  getRandomMovieId(movieId) {
+  getRandomMovie(movieId) {
     let max = this.movieList.length;
     let rndIdx = Math.floor(Math.random() * max);
     let movie = this.movieList[rndIdx];
@@ -32,8 +32,8 @@ export default {
 
   loadMoviePair(movieAId, movieBId) {
     return Promise.all([
-      this.load(sparql.buildMovieQuery(movieAId)),
-      this.load(sparql.buildMovieQuery(movieBId))
+      this.load(sparql.queries.buildMovieQuery(movieAId)),
+      this.load(sparql.queries.buildMovieQuery(movieBId))
     ]).then((res) => {
       return {
         movieA: sparql.parseMovie(res[0]),
