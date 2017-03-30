@@ -13,7 +13,13 @@ const sparql = (function() {
     let result = {};
 
     if (props && props.length > 0) {
-        result.movies = data && data.results && data.bindings.results. && data.bindings.results;
+        result.movies = data && data.results && data.results.bindings && data.results.bindings.map(binding => {
+          let obj = {};
+          props.forEach(prop => {
+            obj[prop] = binding[prop].value;
+          })
+          return obj;
+        });
     }
 
     return result;
