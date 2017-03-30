@@ -4,6 +4,13 @@
 # IDE
 .idea/
 
+# Log
+*.log
+
+# CSS/SASS
+.sass-cache/
+src/css/
+
 # node.js
 node_modules/
 npm-debug.log
