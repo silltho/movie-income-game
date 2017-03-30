@@ -10,6 +10,5 @@ function render(tpl, data) {
     $main.html(tpl(data));
 }
 
-
 page('/', home);
 page();
