@@ -1,0 +1,20 @@
+<table class="table">
+    <thead>
+        <th>Driver</th>
+        <th>Constructor</th>
+        <th>Birthdate</th>
+        <th>Link</th>
+    </thead>
+    <tbody>
+        {{#each drivers}}
+        <tr>
+            <td><a href="/drivers/{{this.driverId}}">{{this.givenName}} {{this.familyName}}</a></td>
+            <td><a href="/constructors/{{this.constructors.[0].constructorId}}">{{this.constructors.[0].name}}</a></td>
+            <td>{{fmtTime this.dateOfBirth}}</td>
+            <td><a target="_blank" href="{{this.url}}">Link</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{> paginationPtl }}
