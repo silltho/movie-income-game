@@ -31,13 +31,13 @@ const sparql = (function() {
 
   return {
     queries: {
-      movieQuery,
+      buildMoviesQuery
     },
     parser: {
       parseMovies
-    }
-    baseUrl,
+    },
+    baseUrl
   }
 })();
 
-export Object.freeze(sparql);
+export default Object.freeze(sparql);
