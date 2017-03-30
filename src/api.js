@@ -1,11 +1,6 @@
 import $ from 'jquery';
 import sparql from './sparql';
 
-let url = 'https://dbpedia.org/sparql';
-let query = '';
-let format = 'json';
-
-
 export default {
     movieList: [],
 
@@ -15,11 +10,11 @@ export default {
     },
 
     loadMovieList() {
-        this.load()
+        this.load(sparql.buildMoviesQuery())
         this.movieList = [];
     },
 
-    getRandomMovie(movieId) {
+    getRandomMovieId(movieId) {
         let max = this.movieList.length;
         let rndIdx = Math.floor(Math.random() * max);
         let movie = this.movieList[rndIdx];
@@ -29,7 +24,7 @@ export default {
             return this.getRandomMovie(movieId);
         }
 
-        return movie;
+        return movie.id;
     },
 
     loadMoviePair(movieAId, movieBId) {
