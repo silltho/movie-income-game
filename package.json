@@ -30,4 +30,5 @@
   },
   "dependencies": {
     "page": "^1.7.1"
+  }
 }
