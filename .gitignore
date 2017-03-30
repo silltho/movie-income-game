@@ -4,6 +4,12 @@
 # IDE
 .idea/
 
+# Log
+*.log
+
+# sass
+.sass-cache/
+
 # node.js
 node_modules/
 

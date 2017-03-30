@@ -3,89 +3,116 @@
 const fs = require('fs')
 const serveStatic = require('serve-static')
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
-  require('load-grunt-tasks')(grunt)
-  require('time-grunt')(grunt)
+    require('load-grunt-tasks')(grunt)
+    require('time-grunt')(grunt)
 
-  grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
 
-    browserify: {
-      watch: {
-        files: {
-          './dist/app.js': ['./src/app.js']
-        },
-        options: {
-          transform: ['hbsfy', 'babelify']
-        }
-      },
-      dist: {
-        files: {
-          './dist/app.js': ['./src/app.js']
-        },
-        options: {
-          transform: ['hbsfy', 'babelify', 'uglifyify']
-        }
-      }
-    },
-
-    clean: {
-      dist: ['./dist']
-    },
-
-    connect: {
-      server: {
-        options: {
-          base: './dist',
-          hostname: '0.0.0.0',
-          livereload: true,
-          open: true,
-          port: 3000,
-          middleware: (connect, options) => {
-            const middlewares = []
-
-            if (!Array.isArray(options.base)) {
-              options.base = [options.base]
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    './src/css/main.css': './src/sass/main.scss', // dest, src
+                }
             }
+        },
 
-            options.base.forEach(function(base) {
-              middlewares.push(serveStatic(base))
-            })
+        browserify: {
+            watch: {
+                files: {
+                    './dist/app.js': ['./src/app.js']
+                },
+                options: {
+                    transform: ['hbsfy', 'babelify']
+                }
+            },
+            dist: {
+                files: {
+                    './dist/app.js': ['./src/app.js']
+                },
+                options: {
+                    transform: ['hbsfy', 'babelify', 'uglifyify']
+                }
+            }
+        },
 
-            // default: index.html
-            middlewares.push((req, res) => {
-              fs
-                .createReadStream(`${options.base}/index.html`)
-                .pipe(res)
-            })
-            return middlewares
-          }
+        clean: {
+            dist: ['./dist']
+        },
+
+        connect: {
+            server: {
+                options: {
+                    base: './dist',
+                    hostname: '0.0.0.0',
+                    livereload: true,
+                    open: true,
+                    port: 3000,
+                    middleware: (connect, options) => {
+                        const middlewares = []
+
+                        if (!Array.isArray(options.base)) {
+                            options.base = [options.base]
+                        }
+
+                        options.base.forEach(function (base) {
+                            middlewares.push(serveStatic(base))
+                        })
+
+                        // default: index.html
+                        middlewares.push((req, res) => {
+                            fs
+                                .createReadStream(`${options.base}/index.html`)
+                                .pipe(res)
+                        })
+                        return middlewares
+                    }
+                }
+            }
+        },
+
+        copy: {
+            dist: {
+                expand: true,
+                cwd: 'src',
+                src: ['*.html','css/*.css'],
+                dest: './dist/'
+            }
+        },
+
+        watch: {
+            js: {
+                files: ['./src/**/*.js', './src/**/*.hbs', './src/*.html', './src/css/*.css'],
+                tasks: ['browserify:watch'],
+                options: {
+                    livereload: true
+                }
+            },
+
+            html: {
+                files: ['./src/*html'],
+                options: {
+                    livereload: true
+                }
+            },
+
+            sass: {
+                files: ['./src/sass/*.scss'],
+                tasks: ['sass'],
+                options: {
+                    livereload: true
+                }
+            }
         }
-      }
-    },
+    })
 
-    copy: {
-      dist: {
-        expand: true,
-        cwd: 'src',
-        src: '*.html',
-        dest: './dist/'
-      }
-    },
-
-    watch: {
-      js: {
-        files: ['./src/**/*.js', './src/**/*.hbs'],
-        tasks: ['browserify:watch'],
-        options: {
-          livereload: true
-        }
-      }
-    }
-  })
-
-  grunt.registerTask('default', ['clean', 'copy', 'browserify:dist'])
-  grunt.registerTask('start', ['default', 'connect', 'watch'])
+    grunt.registerTask('default', ['clean', 'copy', 'sass', 'browserify:dist']);
+    grunt.registerTask('start', ['default', 'connect', 'watch']);
+    grunt.loadNpmTasks('grunt-contrib-sass');
 
 }
