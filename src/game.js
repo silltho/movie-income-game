@@ -13,7 +13,6 @@ export default {
     api.loadMovies()
       .then((data) => this.getRandomMoviePair(data.movies))
       .then((data) => {
-        console.log(data);
         this.moviePair = data;
         this.render(data)
       });
@@ -33,6 +32,8 @@ export default {
     let movieB = this.getRandomMovie(movies, movieA);
 
     this.setComparisonProp(movieA, movieB); 
+
+    console.log(movieA, movieB);
 
     return { movieA, movieB };
   },
