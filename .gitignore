@@ -7,8 +7,9 @@
 # Log
 *.log
 
-# sass
+# CSS/SASS
 .sass-cache/
+src/css/
 
 # node.js
 node_modules/
