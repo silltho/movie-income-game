@@ -1,7 +1,7 @@
 // Modules
 import $ from 'jquery';
 import page from 'page';
-import api from './api';
+import game from './game';
 import Handlebars from 'hbsfy/runtime';
 
 // Templates
@@ -10,7 +10,7 @@ import gameSidePtl from './templates/gameSide.partial.hbs';
 // import notFoundTpl from './templates/notFound.hbs';
 
 
-api.loadMovieList();
+game.init();
 
 // Partials
 Handlebars.registerPartial('gameSidePtl', gameSidePtl);
