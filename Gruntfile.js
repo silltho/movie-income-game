@@ -96,6 +96,7 @@ module.exports = function (grunt) {
 
             html: {
                 files: ['./src/*html'],
+                tasks: ['copy'],
                 options: {
                     livereload: true
                 }
@@ -103,7 +104,7 @@ module.exports = function (grunt) {
 
             sass: {
                 files: ['./src/sass/*.scss'],
-                tasks: ['sass'],
+                tasks: ['sass', 'copy'],
                 options: {
                     livereload: true
                 }

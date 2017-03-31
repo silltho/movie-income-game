@@ -41,10 +41,6 @@ const sparql = (function() {
     return result;
   }
 
-  const parseMovie = data => {
-
-  }
-
   return {
     buildMoviesQuery,
     parseMovies,

@@ -1,6 +1,7 @@
 // Modules
 import $ from 'jquery';
 import page from 'page';
+import game from './game';
 import Handlebars from 'hbsfy/runtime';
 import sparql from './sparql';
 
@@ -11,6 +12,9 @@ fetch(sparql.buildMoviesQuery()).then(res => res.json()).then(sparql.parseMovies
 import homeTpl from './templates/home.hbs';
 import gameSidePtl from './templates/gameSide.partial.hbs';
 // import notFoundTpl from './templates/notFound.hbs';
+
+
+game.init();
 
 // Partials
 Handlebars.registerPartial('gameSidePtl', gameSidePtl);
