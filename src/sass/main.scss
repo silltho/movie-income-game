@@ -12,7 +12,6 @@ $color-dark: #222222;
 }
 
 .coverPic{
-  width:50px;
 }
 
 .movContainer{
@@ -24,13 +23,17 @@ $color-dark: #222222;
 
 
 #movie-a{
-  width: 50%;
-  float: left;
+  position: absolute;
+  top: 40%;
+  left: 15%;
+  width: 15%;
 }
 
 #movie-b{
-  width: 50%;
-  float: right;
+  position: absolute;
+  top: 40%;
+  right: 15%;
+  width: 15%;
 }
 
 .container{
