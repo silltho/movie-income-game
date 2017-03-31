@@ -2,6 +2,10 @@
 import $ from 'jquery';
 import page from 'page';
 import Handlebars from 'hbsfy/runtime';
+import sparql from './sparql';
+
+// testing
+fetch(sparql.buildMoviesQuery()).then(res => res.json()).then(sparql.parseMovies).then(console.log);
 
 // Templates
 import homeTpl from './templates/home.hbs';
