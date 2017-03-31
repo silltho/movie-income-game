@@ -12,6 +12,7 @@ $color-dark: #222222;
 }
 
 .coverPic{
+  width: 100%;
 }
 
 .movContainer{
@@ -19,6 +20,7 @@ $color-dark: #222222;
   float: left;
   display: inline-block;
   overflow: hidden;
+  max-height: 900px;
 }
 
 
@@ -52,6 +54,12 @@ h1{
   text-align: center;
   padding: 30px;
   color: #ffffff;
+}
+h3{
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  font-size: 36px;
+  text-align: center;
 }
 
 
