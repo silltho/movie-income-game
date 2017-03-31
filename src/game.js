@@ -1,12 +1,12 @@
 import $ from 'jquery';
 import api from './api';
-// import mainTpl from './templates/main';
+import mainTpl from './templates/main.hbs';
 
 const COMPARISON_PROPS = ['budget', 'gross'];
 
 export default {
   init() {
-    this.$el = $('#main');
+    this.$el = $('#app');
 
     this.moviePair = {};
 
@@ -19,7 +19,16 @@ export default {
   },
 
   render(data) {
-    // this.$el.html(mainTpl(data));
+    console.log(data);
+    api.loadMovieImage(data.movieA.name).then(res => {
+      data.movieA.image = res;
+      api.loadMovieImage(data.movieB.name).then(res => {
+          data.movieB.image = res;
+          this.$el.html(mainTpl(data));
+          this.postRender();
+      })
+    })
+
   },
 
   postRender() {
@@ -69,7 +78,7 @@ export default {
   movieAClickHandler() {
     let movieA = this.moviePair.movieA;
     let movieB = this.moviePair.movieB;
-
+    console.log('test')
     if (this.isHigher(movieA, movieB)) {
       // right
     } else {
