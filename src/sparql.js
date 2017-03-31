@@ -22,6 +22,25 @@ const sparql = (function() {
     return moviesQuery;
   }
 
+  const parseValue = (prop) => {
+    let value;
+    if (prop.type === 'typed-literal') {
+      let v = new Number(prop.value);
+      value = isNaN(v) ? null : +v;
+    } else {
+      value = prop.value;
+    }
+
+    return value;
+  }
+
+  const parseBinding = (binding, props) => {
+    let obj = {};
+    props.forEach(prop => {
+      obj[prop] = parseValue(binding[prop]);
+    })
+    return obj;
+  };
 
   const parseMovies = data => {
     const props = data && data.head && data.head.vars;
@@ -29,13 +48,8 @@ const sparql = (function() {
     let result = {};
 
     if (props && props.length > 0) {
-        result.movies = data && data.results && data.results.bindings && data.results.bindings.map(binding => {
-          let obj = {};
-          props.forEach(prop => {
-            obj[prop] = binding[prop].value;
-          })
-          return obj;
-        });
+        result.movies = data && data.results && data.results.bindings && data.results.bindings.map(b => parseBinding(b, props));
+        result.movies.forEach(console.log);
     }
 
     return result;

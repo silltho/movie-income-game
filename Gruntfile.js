@@ -28,7 +28,10 @@ module.exports = function (grunt) {
                     './dist/app.js': ['./src/app.js']
                 },
                 options: {
-                    transform: ['hbsfy', 'babelify']
+                    transform: ['hbsfy', 'babelify'],
+                    browserifyOptions: {
+                      debug: true
+                    }
                 }
             },
             dist: {
@@ -36,7 +39,10 @@ module.exports = function (grunt) {
                     './dist/app.js': ['./src/app.js']
                 },
                 options: {
-                    transform: ['hbsfy', 'babelify', 'uglifyify']
+                    transform: ['hbsfy', 'babelify', 'uglifyify'],
+                    browserifyOptions: {
+                      debug: true
+                    }
                 }
             }
         },
