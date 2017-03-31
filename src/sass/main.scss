@@ -1,4 +1,40 @@
+$color-dark: #919191;
+
 .side {
   display: inline-block;
   width: 50%;
+  float: left;
+}
+.main{
+  background-color: $color-dark;
+}
+
+#movie-a{
+  width: 50%;
+  float: left;
+  height: 1000px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+#movie-b{
+  width: 50%;
+  float: right;
+  height: 1000px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.container{
+  width: 100%;
+}
+
+img{
+  width: 100%;
+}
+
+h1{
+  font-family: 'Lobster', cursive;
+  text-align: center;
+  background-color: ;
 }
