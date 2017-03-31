@@ -12,5 +12,9 @@ export default {
       .then((res) => {
         return sparql.parseMovies(res);
       });
+  },
+  loadMovieImage(movie){
+    let url = 'http://www.omdbapi.com/?t='+movie;
+    return this.load(url).then(response => response.Poster)
   }
 };
