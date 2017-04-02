@@ -19,16 +19,17 @@ export default {
   },
 
   render(data) {
-    console.log(data);
-    api.loadMovieImage(data.movieA.name).then(res => {
-      data.movieA.image = res;
-      api.loadMovieImage(data.movieB.name).then(res => {
-          data.movieB.image = res;
-          this.$el.html(mainTpl(data));
-          this.postRender();
-      })
-    })
 
+    let promises = [];
+    promises.push(api.loadMovieImage(data.movieA.name))
+    promises.push(api.loadMovieImage(data.movieB.name))
+
+    Promise.all(promises).then(res => {
+        data.movieA.image  = res[0]
+        data.movieB.image  = res[1]
+        this.$el.html(mainTpl(data));
+        this.postRender();
+    })
   },
 
   postRender() {
