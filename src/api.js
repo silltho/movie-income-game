@@ -1,4 +1,4 @@
-import config from './config';
+import {CONFIG} from './config';
 import sparql from './sparql';
 
 export default {
@@ -15,6 +15,6 @@ export default {
   },
 
   loadMovieImage(movie){
-    return this.load(config.MOVIES_IMAGES_URL + movie).then(response => response.Poster)
+    return this.load(CONFIG.MOVIES_IMAGES_URL + movie).then(response => response.Poster)
   }
 };
