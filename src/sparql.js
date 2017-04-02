@@ -1,11 +1,9 @@
 // funtion: getAllMovies
 // function: getMovieById
 
-
 const sparql = (function() {
-
   /*
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
   SELECT DISTINCT ?film_title ?film_runtime ?film_gross ?film_budget
   WHERE {

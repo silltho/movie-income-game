@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import sparql from './sparql';
 
 export default {
