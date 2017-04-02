@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import config from './config';
 import sparql from './sparql';
 
 export default {
@@ -13,8 +13,8 @@ export default {
         return sparql.parseMovies(res);
       });
   },
+
   loadMovieImage(movie){
-    let url = 'http://www.omdbapi.com/?t='+movie;
-    return this.load(url).then(response => response.Poster)
+    return this.load(config.MOVIES_IMAGES_URL + movie).then(response => response.Poster)
   }
 };
