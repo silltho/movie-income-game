@@ -1,11 +1,11 @@
-<div class="movContainer" style="background-image: url({{movieA.image}});" >
+<div class="movContainer" style="background-image: url({{movieA.image}});">
     <!--<div class="movie-a-button">
         <
     </div>-->
 </div>
 
 <div id="movie-a" >
-    <img class="coverPic" src="{{movieA.image}}" alt="">
+    <img class="coverPic" src="{{movieA.image}}" alt=""  onerror='if(this.src !== "https://upload.wikimedia.org/wikipedia/commons/0/09/Dummy_flag.png?uselang=en-gb") this.src = "https://upload.wikimedia.org/wikipedia/commons/0/09/Dummy_flag.png?uselang=en-gb";'>
     <h3>{{movieA.name}}</h3>
 </div>
 
@@ -16,6 +16,6 @@
 </div>
 
 <div id="movie-b" >
-    <img class="coverPic" src="{{movieB.image}}" alt="">
+    <img class="coverPic" src="{{movieB.image}}" alt="" onerror='if(this.src !== "https://upload.wikimedia.org/wikipedia/commons/0/09/Dummy_flag.png?uselang=en-gb") this.src = "https://upload.wikimedia.org/wikipedia/commons/0/09/Dummy_flag.png?uselang=en-gb";'>
     <h3>{{movieB.name}}</h3>
 </div>
