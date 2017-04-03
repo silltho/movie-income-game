@@ -1,5 +1,9 @@
 $color-dark: #222222;
 
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
 html {
   background-color: $color-dark;
 }
@@ -31,7 +35,19 @@ h3 {
   position: absolute;
 }
 
-.logo{
+#score-counter {
+  text-align: center;
+  color: white;
+  padding: 15px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
+  font-size: 25px;
+  border: 2px solid white;
+}
+
+.logo {
   width: 220px;
   float: left;
 
@@ -62,7 +78,7 @@ h3 {
   /*max-height: 900px;*/
   height: 650px;
   position: relative;
-  background-size:cover;
+  background-size: cover;
   opacity: 0.1;
 }
 
@@ -91,7 +107,7 @@ h3 {
   transform: translateY(-50%);
   background-color: red;
   border-top-right-radius: 100%;
-  border-bottom-right-radius:100%;
+  border-bottom-right-radius: 100%;
   padding: 25px;
 }
 
