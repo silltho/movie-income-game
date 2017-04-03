@@ -39,7 +39,7 @@ export default {
     let movieA = this.getRandomMovie(movies);
     let movieB = this.getRandomMovie(movies, movieA);
 
-    this.setComparisonProp(movieA, movieB); 
+    this.setComparisonProp(movieA, movieB);
 
     console.log(movieA, movieB);
 
@@ -68,10 +68,12 @@ export default {
     }
   },
 
-  isHigher(choosen, other) {
-    let comparisonProp = choosen.comparisonProp;
+  isHigher(chosen, other) {
+    let comparisonProp = chosen.comparisonProp;
+    console.log("Chosen" + chosen[comparisonProp]);
+    console.log("Other" + other[comparisonProp]);
 
-    return choosen[comparisonProp] > other[comparisonProp];
+    return chosen[comparisonProp] > other[comparisonProp];
   },
 
   movieAClickHandler() {
@@ -79,9 +81,9 @@ export default {
     let movieB = this.moviePair.movieB;
     console.log('test');
     if (this.isHigher(movieA, movieB)) {
-      // right
+        console.log("Movie A has a higher value");
     } else {
-      // wrong
+        console.log("Movie B has a higher value");
     }
   },
 
@@ -90,9 +92,9 @@ export default {
     let movieB = this.moviePair.movieB;
 
     if (this.isHigher(movieB, movieA)) {
-      // right
+        console.log("Movie B has a higher value.");
     } else {
-      // wrong
+        console.log("Movie A has a higher value.");
     }
   }
 }
