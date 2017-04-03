@@ -82,13 +82,9 @@ export default {
         let movieB = this.moviePair.movieB;
 
         if (this.isHigher(movieA, movieB)) {
-            score += 1;
-            this.renderScore();
-            console.log("Movie A has a higher value");
+            handleRightAnswer();
         } else {
-            score -= 1;
-            this.renderScore();
-            console.log("Movie B has a higher value");
+            handleWrongAnswer();
         }
     },
 
@@ -101,13 +97,21 @@ export default {
         let movieB = this.moviePair.movieB;
 
         if (this.isHigher(movieB, movieA)) {
-            score += 1;
-            this.renderScore();
-            console.log("Movie B has a higher value.");
+            handleRightAnswer();
         } else {
-            score -= 1;
-            this.renderScore();
-            console.log("Movie A has a higher value.");
+            handleWrongAnswer();
         }
     }
+}
+
+function handleRightAnswer() {
+    score += 1;
+    this.renderScore();
+    alert('Right!');
+}
+
+function handleWrongAnswer() {
+    score -= 1;
+    this.renderScore();
+    alert('Wrong!');
 }
