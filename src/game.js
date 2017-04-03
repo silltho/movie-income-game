@@ -8,14 +8,10 @@ let score = 0;
 export default {
     init() {
         this.$el = $('#app');
-        this.allMovies = {};
         this.moviePair = {};
 
         api.loadMovies()
-            .then((data) =>  {
-                this.allMovies = this.getRandomMoviePair(data.movies);
-                return this.allMovies;
-            })
+            .then((data) => this.getRandomMoviePair(data.movies))
             .then((data) => {
                 this.moviePair = data;
                 this.render(data)
@@ -46,7 +42,7 @@ export default {
 
         this.setComparisonProp(movieA, movieB);
 
-        console.log(movieA, movieB);
+        //console.log(movieA, movieB);
 
         return {movieA, movieB};
     },
