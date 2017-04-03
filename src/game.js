@@ -4,32 +4,28 @@ import {pages} from './pages'
 
 const COMPARISON_PROPS = ['budget', 'gross'];
 let score = 0;
+let movies = [];
 
-export default {
+let higherLowerGame = {
     init() {
         this.$el = $('#app');
         this.moviePair = {};
-
-        api.loadMovies()
-            .then((data) => this.getRandomMoviePair(data.movies))
-            .then((data) => {
-                this.moviePair = data;
-                this.render(data)
-            });
+        api.loadMovies().then(data => {
+            movies = data.movies;
+            this.moviePair = this.getRandomMoviePair(movies)
+            this.appendMovieImages(this.moviePair).then(data => {
+                this.$el.html(pages.mainTpl(data));
+                this.postRender();
+            })
+        })
     },
 
-    render(data) {
-        let promises = [];
-        promises.push(api.loadMovieImage(data.movieA.name))
-        promises.push(api.loadMovieImage(data.movieB.name))
-
-        Promise.all(promises).then(res => {
-            data.movieA.image = res[0]
-            data.movieB.image = res[1]
+    /*render(data) {
+        this.appendMovieImages(data).then(data => {
             this.$el.html(pages.mainTpl(data));
             this.postRender();
         })
-    },
+    },*/
 
     postRender() {
         this.$el.on('click', '#movie-a', this.movieAClickHandler.bind(this));
@@ -87,11 +83,6 @@ export default {
             handleWrongAnswer();
         }
     },
-
-    renderScore() {
-        $('#score-counter').html(score);
-    },
-
     movieBClickHandler() {
         let movieA = this.moviePair.movieA;
         let movieB = this.moviePair.movieB;
@@ -101,17 +92,38 @@ export default {
         } else {
             handleWrongAnswer();
         }
+    },
+    appendMovieImages(data) {
+        let promises = [];
+        promises.push(api.loadMovieImage(data.movieA.name))
+        promises.push(api.loadMovieImage(data.movieB.name))
+
+        return Promise.all(promises).then(res => {
+            data.movieA.image = res[0]
+            data.movieB.image = res[1]
+            return data
+        })
+    },
+
+    reload() {
+        //implement reload
     }
+}
+
+export default higherLowerGame
+
+function renderScore() {
+    $('#score-counter').html(score);
 }
 
 function handleRightAnswer() {
     score += 1;
-    this.renderScore();
     alert('Right!');
+    renderScore();
 }
 
 function handleWrongAnswer() {
     score -= 1;
-    this.renderScore();
     alert('Wrong!');
+    renderScore();
 }
