@@ -8,10 +8,14 @@ let score = 0;
 export default {
     init() {
         this.$el = $('#app');
+        this.allMovies = {};
         this.moviePair = {};
 
         api.loadMovies()
-            .then((data) => this.getRandomMoviePair(data.movies))
+            .then((data) =>  {
+                this.allMovies = this.getRandomMoviePair(data.movies);
+                return this.allMovies;
+            })
             .then((data) => {
                 this.moviePair = data;
                 this.render(data)
@@ -71,8 +75,8 @@ export default {
 
     isHigher(chosen, other) {
         let comparisonProp = chosen.comparisonProp;
-        console.log("Chosen" + chosen[comparisonProp]);
-        console.log("Other" + other[comparisonProp]);
+        console.log("Chosen: " + chosen[comparisonProp]);
+        console.log("Other: " + other[comparisonProp]);
 
         return chosen[comparisonProp] > other[comparisonProp];
     },
@@ -80,7 +84,7 @@ export default {
     movieAClickHandler() {
         let movieA = this.moviePair.movieA;
         let movieB = this.moviePair.movieB;
-        console.log('test');
+
         if (this.isHigher(movieA, movieB)) {
             score += 1;
             this.renderScore();
