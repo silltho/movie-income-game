@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import api from './api';
+import {CONFIG} from './config';
 import {pages} from './pages'
 
-const COMPARISON_PROPS = ['budget', 'gross'];
 let score = 0;
 let movies = [];
 
@@ -12,8 +12,8 @@ let higherLowerGame = {
         this.moviePair = {};
         api.loadMovies().then(data => {
             movies = data.movies;
-            this.moviePair = this.getRandomMoviePair(movies)
-            this.appendMovieImages(this.moviePair).then(data => {
+            this.moviePair = getRandomMoviePair(movies)
+            appendMovieImages(this.moviePair).then(data => {
                 this.$el.html(pages.mainTpl(data));
                 this.postRender();
             })
@@ -32,77 +32,11 @@ let higherLowerGame = {
         this.$el.on('click', '#movie-b', this.movieBClickHandler.bind(this));
     },
 
-    getRandomMoviePair(movies) {
-        let movieA = this.getRandomMovie(movies);
-        let movieB = this.getRandomMovie(movies, movieA);
-
-        this.setComparisonProp(movieA, movieB);
-
-        //console.log(movieA, movieB);
-
-        return {movieA, movieB};
-    },
-
-    // if idx is the same call rnd again
-    getRandomMovie(movies, excludedMovie) {
-        let max = movies.length;
-        let rndIdx = Math.floor(Math.random() * max);
-        let movie = movies[rndIdx];
-
-        if (!!excludedMovie && excludedMovie.id === movie.id) {
-            return this.getRandomMovie(movies, excludedMovie);
-        }
-
-        return movie;
-    },
-
-    setComparisonProp(...movies) {
-        let rndIdx = Math.floor(Math.random() * COMPARISON_PROPS.length);
-        let comparisonProp = COMPARISON_PROPS[rndIdx];
-
-        for (let movie of movies) {
-            movie.comparisonProp = comparisonProp;
-        }
-    },
-
-    isHigher(chosen, other) {
-        let comparisonProp = chosen.comparisonProp;
-        console.log("Chosen: " + chosen[comparisonProp]);
-        console.log("Other: " + other[comparisonProp]);
-
-        return chosen[comparisonProp] > other[comparisonProp];
-    },
-
     movieAClickHandler() {
-        let movieA = this.moviePair.movieA;
-        let movieB = this.moviePair.movieB;
-
-        if (this.isHigher(movieA, movieB)) {
-            handleRightAnswer();
-        } else {
-            handleWrongAnswer();
-        }
+        handleComparison(this.moviePair.movieA, this.moviePair.movieB)
     },
     movieBClickHandler() {
-        let movieA = this.moviePair.movieA;
-        let movieB = this.moviePair.movieB;
-
-        if (this.isHigher(movieB, movieA)) {
-            handleRightAnswer();
-        } else {
-            handleWrongAnswer();
-        }
-    },
-    appendMovieImages(data) {
-        let promises = [];
-        promises.push(api.loadMovieImage(data.movieA.name))
-        promises.push(api.loadMovieImage(data.movieB.name))
-
-        return Promise.all(promises).then(res => {
-            data.movieA.image = res[0]
-            data.movieB.image = res[1]
-            return data
-        })
+        handleComparison(this.moviePair.movieB, this.moviePair.movieA)
     },
 
     reload() {
@@ -111,6 +45,16 @@ let higherLowerGame = {
 }
 
 export default higherLowerGame
+
+//---------------------private functions---------------------
+
+function handleComparison(movieA, movieB){
+    if (isHigher(movieA, movieB)) {
+        handleRightAnswer();
+    } else {
+        handleWrongAnswer();
+    }
+}
 
 function renderScore() {
     $('#score-counter').html(score);
@@ -126,4 +70,57 @@ function handleWrongAnswer() {
     score -= 1;
     alert('Wrong!');
     renderScore();
+}
+
+// if idx is the same call rnd again
+function getRandomMovie(movies, excludedMovie) {
+    let max = movies.length;
+    let rndIdx = Math.floor(Math.random() * max);
+    let movie = movies[rndIdx];
+
+    if (!!excludedMovie && excludedMovie.id === movie.id) {
+        return getRandomMovie(movies, excludedMovie);
+    }
+
+    return movie;
+}
+
+function getRandomMoviePair(movies) {
+    let movieA = getRandomMovie(movies);
+    let movieB = getRandomMovie(movies, movieA);
+
+    setComparisonProp(movieA, movieB);
+
+    //console.log(movieA, movieB);
+
+    return {movieA, movieB};
+}
+
+function setComparisonProp(...movies) {
+    let rndIdx = Math.floor(Math.random() * CONFIG.COMPARISON_PROPS.length);
+    let comparisonProp = CONFIG.COMPARISON_PROPS[rndIdx];
+
+    for (let movie of movies) {
+        movie.comparisonProp = comparisonProp;
+    }
+}
+
+function isHigher(chosen, other) {
+    let comparisonProp = chosen.comparisonProp;
+    console.log("Chosen: " + chosen[comparisonProp]);
+    console.log("Other: " + other[comparisonProp]);
+
+    return chosen[comparisonProp] > other[comparisonProp];
+}
+
+function appendMovieImages(data) {
+    let promises = [];
+    promises.push(api.loadMovieImage(data.movieA.name))
+    promises.push(api.loadMovieImage(data.movieB.name))
+
+    return Promise.all(promises).then(res => {
+        data.movieA.image = res[0]
+        data.movieB.image = res[1]
+        return data
+    })
 }
