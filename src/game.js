@@ -20,13 +20,6 @@ let higherLowerGame = {
         })
     },
 
-    /*render(data) {
-        this.appendMovieImages(data).then(data => {
-            this.$el.html(pages.mainTpl(data));
-            this.postRender();
-        })
-    },*/
-
     postRender() {
         this.$el.on('click', '#movie-a', this.movieAClickHandler.bind(this));
         this.$el.on('click', '#movie-b', this.movieBClickHandler.bind(this));
@@ -40,13 +33,10 @@ let higherLowerGame = {
     },
 
     reload() {
-        api.loadMovies().then(data => {
-            movies = data.movies;
-            this.moviePair = getRandomMoviePair(movies)
-            appendMovieImages(this.moviePair).then(data => {
-                this.$el.html(pages.mainTpl(data));
-                renderScore();
-            })
+        this.moviePair = getRandomMoviePair(movies)
+        appendMovieImages(this.moviePair).then(data => {
+            this.$el.html(pages.mainTpl(data));
+            renderScore();
         })
     }
 }
@@ -112,8 +102,8 @@ function setComparisonProp(...movies) {
 
 function isHigher(chosen, other) {
     let comparisonProp = chosen.comparisonProp;
-    console.log("Chosen: " + chosen[comparisonProp]);
-    console.log("Other: " + other[comparisonProp]);
+    //console.log("Chosen: " + chosen[comparisonProp]);
+    //console.log("Other: " + other[comparisonProp]);
 
     return chosen[comparisonProp] > other[comparisonProp];
 }
