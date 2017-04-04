@@ -1,9 +1,5 @@
 # IMDB Higher - Lower Game
 
-Todos: 
- - !!!format number in parser (.replace(/[^0-9.e]+/gi, '') -> convert to int!!!
- - ui stuff 
- - fetch movie images 
- - ???
- - Profit!
- - was wenn kein bild verfügbar ist? sollte es trotzdem angezeigt werden?
+Todos: (optional)
+- refactoring frontend (hbs templates)
+- add animation after the user has choosen a movie
