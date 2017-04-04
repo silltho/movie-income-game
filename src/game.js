@@ -92,8 +92,8 @@ function getRandomMoviePair(movies) {
 }
 
 function setComparisonProp(...movies) {
-    let rndIdx = Math.floor(Math.random() * CONFIG.COMPARISON_PROPS.length);
-    let comparisonProp = CONFIG.COMPARISON_PROPS[rndIdx];
+    //let rndIdx = Math.floor(Math.random() * CONFIG.COMPARISON_PROPS.length);
+    let comparisonProp = CONFIG.COMPARISON_PROPS[0];
 
     for (let movie of movies) {
         movie.comparisonProp = comparisonProp;
