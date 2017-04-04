@@ -40,7 +40,14 @@ let higherLowerGame = {
     },
 
     reload() {
-        //implement reload
+        api.loadMovies().then(data => {
+            movies = data.movies;
+            this.moviePair = getRandomMoviePair(movies)
+            appendMovieImages(this.moviePair).then(data => {
+                this.$el.html(pages.mainTpl(data));
+                renderScore();
+            })
+        })
     }
 }
 
@@ -63,13 +70,13 @@ function renderScore() {
 function handleRightAnswer() {
     score += 1;
     alert('Right!');
-    renderScore();
+    higherLowerGame.reload();
 }
 
 function handleWrongAnswer() {
     score -= 1;
     alert('Wrong!');
-    renderScore();
+    higherLowerGame.reload();
 }
 
 // if idx is the same call rnd again
@@ -90,8 +97,6 @@ function getRandomMoviePair(movies) {
     let movieB = getRandomMovie(movies, movieA);
 
     setComparisonProp(movieA, movieB);
-
-    //console.log(movieA, movieB);
 
     return {movieA, movieB};
 }
